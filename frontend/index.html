@@ -12,23 +12,22 @@
 <body>
     <h1>LivePoll</h1>
     <small>When you need a simple solution for a huge problem.</small>
-    <div class="poll">
+    <br>
+    <br>
+    <form id="pollForm">
+        <label for="pollId">Poll ID:</label>
+        <input type="text" name="pollId" id="pollId">
+        <input type="button" value="Join poll" id="joinPoll">
+    </form>
+    <!-- <div class="poll">
         <h2 id="poll-header">What should we do?</h2>
         <p id="votes"></p>
         <br>
-        <!--<ul>
-            <li class="option">Option A</li>
-            <li class="option">Option B</li>
-            <li class="option">Option C</li>
-        </ul>-->
         <div class="options">
             <button onclick="submitVote(3, 9);">Go to the movies</button>
             <button onclick="submitVote(3, 10);">Eat pizza</button>
-            <!--<button onclick="submitVote(1, 6);">Party</button>
-            <button onclick="submitVote(1, 7);">Listen to music</button>
-            <button onclick="submitVote(1, 8);">Suggestions?</button>-->
         </div>
-    </div>
+    </div> -->
     <script src="script.js"></script>
 </body>
 </html>

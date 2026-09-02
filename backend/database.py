@@ -102,7 +102,7 @@ def submit_vote(db_name: str, poll_id: int, option_id: int):
     sql = "UPDATE options SET vote_count=vote_count+1 WHERE id=? AND poll_id=? RETURNING vote_count"
     args = (option_id,poll_id)
     output=execute_sql(sql, db_name, args=args)
-    print(output,output['output'])
+    # print(output,output['output'])
     if not output['rows_affected']:
         get_option(db_name, poll_id, option_id)
     execute_sql("UPDATE polls SET total_answers=total_answers+1 WHERE id=?", db_name, args=(poll_id,))
@@ -115,7 +115,7 @@ def get_polls(db_name: str):
 def get_poll(db_name: str, poll_id: int):
     sql = "SELECT * FROM polls WHERE id=?"
     args = (poll_id,)
-    output = execute_sql(sql, db_name, "fetch_all", args=args)
+    output = execute_sql(sql, db_name, "fetch_one", args=args)
     if output['output']:
         return output
     raise PollNotFound

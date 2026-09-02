@@ -85,7 +85,11 @@ def get_polls():
 def get_poll(poll_id: int):
     try:
         info = database.get_poll(DATABASE_NAME, poll_id)['output']
-        return [dict(row) for row in info]
+        poll_values = dict(info)
+        poll = poll_values
+        options = database.get_options(DATABASE_NAME,poll_id)["output"]
+        poll["options"] = [dict(option) for option in options]
+        return poll
     except database.PollNotFound:
         raise HTTPException(status_code=404, detail="Poll not found")
 
