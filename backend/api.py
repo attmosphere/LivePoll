@@ -2,6 +2,7 @@ from fastapi import FastAPI, status, HTTPException
 from fastapi.middleware.cors import CORSMiddleware
 from pydantic import BaseModel
 import database
+from pathlib import Path
 
 class PollOptionCreate(BaseModel):
     """Takes id (string), text (string) and description (string or None).
@@ -37,7 +38,8 @@ class Vote(BaseModel):
         \nBest used for submitting votes."""
     id: int 
 
-DATABASE_NAME = "polls.db"
+DATABASE_NAME = f"{Path().resolve()}/polls.db"
+
 origins = [
     "http://localhost:5000",
     "http://localhost",
@@ -45,7 +47,8 @@ origins = [
     "http://127.0.0.1",
     "http://127.0.0.1:3000",
     "http://127.0.0.1:5500",
-    "http://localhost:5500"
+    "http://localhost:5500",
+    "http://0.0.0.0:8080"
 ]
 app = FastAPI()
 app.add_middleware(

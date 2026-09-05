@@ -11,6 +11,7 @@ class OptionNotFromPoll(Exception):
 
 def execute_sql(sql_statement: str, database_path: str, fetch="fetch_all", args=tuple()) -> dict:
     connection = sqlite3.connect(database_path)
+    
     connection.row_factory = sqlite3.Row
     cursor = connection.cursor()
     cursor.execute("PRAGMA foreign_keys = ON")
