@@ -20,6 +20,7 @@ async function submitVote(pollID, optionID){
 function removePollElement() {
     const pollElement = document.querySelector(".poll");
     pollElement.remove();
+    poll_loaded = false;
 }
 async function getVotes(pollID) {
     const response = await fetch(`http://127.0.0.1:8000/polls/${pollID}/votes`);
@@ -31,6 +32,41 @@ async function updateVotes(pollID) {
     votes_element = document.getElementById("votes");
     const votes_amount = await getVotes(pollID);
     votes_element.innerText = `${votes_amount} votes`
+}
+function buildCreatePollForm() {
+}
+function buildJoinPollForm() {
+    if (document.getElementById("joinPollForm")) {
+        return;
+    }
+    const joinPollDiv = document.createElement("form");
+    joinPollDiv.id = "joinPollForm";
+    const pollIdLabel = document.createElement("label");
+    const pollIdInput = document.createElement("input");
+    const joinPollButton = document.createElement("input");
+
+    pollIdLabel.setAttribute("for", "pollId");
+    pollIdLabel.textContent = "Poll ID:";
+    pollIdInput.type = "text";
+    pollIdInput.name = "pollId";
+    pollIdInput.id = "pollId";
+    joinPollButton.id = "joinPoll";
+    joinPollButton.value = "Join poll";
+    joinPollButton.type = "button";
+
+    joinPollButton.addEventListener("click", function () {
+    const pollId = pollIdInput.value;
+        if (poll_loaded){
+            removePollElement();
+            console.log("removed poll");
+        }
+        if (!getPoll(pollId)) {
+            buildError(`Error retrieving poll {pollId}`);
+        }
+    })
+    
+    joinPollDiv.append(pollIdLabel, pollIdInput, joinPollButton);
+    document.body.appendChild(joinPollDiv);
 }
 function buildPollElement(pollJson) {
     try {
@@ -88,15 +124,15 @@ async function getPoll(poll_id) {
 }
 
 const votes = document.getElementById("votes");
-const join_poll = document.getElementById("joinPoll")
-join_poll.addEventListener("click", function () {
-    const pollIdElement = document.getElementById("pollId")
-    const pollId = pollIdElement.value;
-    if (poll_loaded){
-        removePollElement();
-        console.log("removed poll");
-    }
-    if (!getPoll(pollId)) {
-        buildError(`Error retrieving poll {pollId}`);
-    }
-})
+// const join_poll = document.getElementById("joinPoll")
+// join_poll.addEventListener("click", function () {
+//     const pollIdElement = document.getElementById("pollId")
+//     const pollId = pollIdElement.value;
+//     if (poll_loaded){
+//         removePollElement();
+//         console.log("removed poll");
+//     }
+//     if (!getPoll(pollId)) {
+//         buildError(`Error retrieving poll {pollId}`);
+//     }
+// })

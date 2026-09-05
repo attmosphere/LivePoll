@@ -1,8 +1,12 @@
 body {
     background: #000000;
-    background: linear-gradient(90deg, rgba(0, 0, 0, 1) 0%, rgba(23, 22, 22, 1) 50%, rgba(48, 48, 48, 1) 100%, rgba(0, 0, 0, 1) 0%);
+    background: linear-gradient(90deg, black 0%, #171616 50%, #303030 100%);
     font-family: Arial;
     text-align: center;
+}
+:root {
+    --purple: rgb(115, 59, 206);
+    --secondary-color: rgb(223, 220, 220);
 }
 h1 {
     font-family: Montserrat;
@@ -14,6 +18,8 @@ h1, small{
     color: rgb(245, 244, 244);
 }
 small {
+    display: inline-block;
+    margin-bottom: 25px;
     padding: 4px;
     background-color: black;
     font-family: "Open Sans";
@@ -37,9 +43,6 @@ small {
     background-color: rgba(255, 255, 255, 0.1);
     backdrop-filter: blur(15px);
 }
-.option {
-    color: rgb(38, 97, 206);
-}
 .options {
     display: flex;
     flex-wrap:wrap;
@@ -60,17 +63,17 @@ small {
 .options button:hover {
     cursor: pointer;
     transform: translateY(-4px);
-    border-color: rgb(115, 59, 206);
+    border-color: var(--purple);
     /* transform: scale(0.95); */
 }
 .options button:focus {
-    background-color: rgb(115, 59, 206);
-    border-color: rgb(104, 47, 197);
+    background-color: var(--purple);
+    border-color: var(--purple);
     color: white;
     transform: scale(1.05);
 }
 *::selection{
-    background-color: rgb(115, 59, 206);
+    background-color: var(--purple);
 }
 .error {
     color: red;
@@ -82,15 +85,19 @@ small {
     font-size:larger;
 }
 form {
+    display: flex;
+    align-items: center;
     background-color: white;
-    margin: 0 auto;
+    gap: 10px;
+    margin: 20px auto;
     width: fit-content;
-    padding: 5px;
+    padding: 15px;
     font-size: 15px;
     border-radius: 5px;
 }
 input[type=button] {
     padding: 10px;
+    margin: 5px;
     font-size: 15px;
     border: 1px solid rgb(54, 54, 54);
     border-radius: 8px;
@@ -98,4 +105,25 @@ input[type=button] {
     color: rgb(37, 37, 37);
     cursor: pointer;
 }
-
+#action_buttons {
+    display: flex;
+    justify-content: center;
+    width: 20%;
+    margin: 0 auto;
+    gap: 10%;
+}
+button {
+    transition: 0.15s;
+    padding: 10px;
+    color: var(--purple);
+    border: 1px solid var(--purple);
+    background-color: white;
+    border-radius: 5px;
+    font-size: 15px;
+    cursor: pointer;
+}
+button:hover {
+    background-color: var(--purple);
+    color: white;
+    transform: scale(1.075);
+}
