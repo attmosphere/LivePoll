@@ -19,7 +19,7 @@ class PollOptionInfo(BaseModel):
     description: str | None
     vote_count: int 
 
-class PollInfo(BaseModel):
+class PollInfo(BaseModel): 
     """Takes id (integer), name (string), total_answers (integer) and options (list of PollOptionInfo's).
         \nBest used for displaying a poll's complete information."""
     id: int
@@ -48,7 +48,8 @@ origins = [
     "http://127.0.0.1:3000",
     "http://127.0.0.1:5500",
     "http://localhost:5500",
-    "http://0.0.0.0:8080"
+    "http://0.0.0.0:8080",
+    "http://127.0.0.1:8080"
 ]
 app = FastAPI()
 app.add_middleware(

@@ -29,7 +29,7 @@ small {
 #poll-header {
     color: white;
     font-size: 45px;
-    margin-top: 0;
+    margin-top: -20px;
     margin-bottom: 25px;
 }
 .poll {
@@ -45,7 +45,7 @@ small {
 }
 .options {
     display: flex;
-    flex-wrap:wrap;
+    flex-wrap: wrap;
     justify-content: center;
     align-items: center;
     gap: 25px;
@@ -72,7 +72,7 @@ small {
     color: white;
     transform: scale(1.05);
 }
-*::selection{
+*::selection {
     background-color: var(--purple);
 }
 .error {
@@ -80,10 +80,18 @@ small {
     background-color: black;
     font-size: 30px;
 }
-#votes{
+#poll_id {
+    position: absolute;
+    right: 20px;    
+    bottom: 10px;
+    color: white;
+
+}
+#votes {
     color:white;
     font-size:larger;
 }
+
 form {
     display: flex;
     align-items: center;

@@ -3,3 +3,4 @@ backend/.pytest_cache
 backend/polls.db
 backend/polls.db-shm
 backend/polls.db-wal
+run.sh
