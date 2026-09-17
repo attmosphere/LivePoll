@@ -50,27 +50,11 @@ small {
     align-items: center;
     gap: 25px;
 }
-.options button {
-    transition: 0.15s;
-    width: 150px;
-    height: 100px;
-    font-size: larger;  
-    color: rgb(37, 37, 37);
-    background-color: rgb(223, 220, 220);
-    border: 2px solid rgb(133, 126, 126);
-    border-radius: 15px;
-}
 .options button:hover {
     cursor: pointer;
     transform: translateY(-4px);
     border-color: var(--purple);
     /* transform: scale(0.95); */
-}
-.options button:focus {
-    background-color: var(--purple);
-    border-color: var(--purple);
-    color: white;
-    transform: scale(1.05);
 }
 *::selection {
     background-color: var(--purple);
@@ -113,15 +97,15 @@ input[type=button] {
     color: rgb(37, 37, 37);
     cursor: pointer;
 }
-#action_buttons {
+.action_button {
     display: flex;
     justify-content: center;
     width: 20%;
     margin: 0 auto;
     gap: 10%;
 }
-button {
-    transition: 0.15s;
+.action_button button {
+    transition: 0.4s;
     padding: 10px;
     color: var(--purple);
     border: 1px solid var(--purple);
@@ -130,8 +114,45 @@ button {
     font-size: 15px;
     cursor: pointer;
 }
-button:hover {
+.action_button button:hover {
     background-color: var(--purple);
     color: white;
     transform: scale(1.075);
+}
+#add_option {
+    border: none;
+    width: auto;
+    height: auto;
+    font-size: 14px;
+    background-color: transparent;
+    color: white;
+}
+#add_option:hover {
+    transform: none;
+    text-decoration: underline;
+}
+.options button {
+    transition: 0.4s;
+    width: 150px;
+    height: 100px;
+    font-size: larger;  
+    color: rgb(37, 37, 37);
+    background-color: rgb(223, 220, 220);
+    border: 2px solid rgb(133, 126, 126);
+    border-radius: 15px;
+}
+.options button.button_clicked {
+    background-color: var(--purple);
+    border-color: var(--purple);
+    color: white;
+    transform: scale(1.05);
+}
+.hidden{display:none;}
+.option_votes {
+    color: var(--purple);
+    display: block;
+    font-size: 16px;
+}
+span {
+    pointer-events: none;
 }
