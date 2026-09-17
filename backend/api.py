@@ -38,6 +38,9 @@ class Vote(BaseModel):
         \nBest used for submitting votes."""
     id: int 
 
+class PollName(BaseModel):
+    name: str
+
 DATABASE_NAME = f"{Path().resolve()}/polls.db"
 
 origins = [
@@ -98,8 +101,8 @@ def get_poll(poll_id: int):
         raise HTTPException(status_code=404, detail="Poll not found")
 
 @app.post("/polls/create", status_code=status.HTTP_201_CREATED)
-def poll_create(poll_name: str):
-    poll_id = database.create_poll(DATABASE_NAME, poll_name)['new_inserted_id']
+def poll_create(poll_name: PollName):
+    poll_id = database.create_poll(DATABASE_NAME, poll_name.name)['new_inserted_id']
     return {"message": "Poll created", "id": poll_id}
 
 @app.delete("/polls/{poll_id}")
@@ -124,13 +127,21 @@ def add_option(poll_id: int, option: PollOptionCreate):
     except database.PollNotFound:
         raise HTTPException(status_code=404, detail="Poll not found")
 
-@app.get("/polls/{poll_id}/options", response_model=list[PollOptionInfo])
-def get_options(poll_id: int):
+@app.get("/polls/{poll_id}/options/{option_id}", response_model=PollOptionInfo)
+def get_option(poll_id: int, option_id: int):
     try:
-        options = database.get_options(DATABASE_NAME, poll_id)['output']
-        return [dict(row) for row in options]
+        output = database.get_option(DATABASE_NAME, poll_id, option_id)
+        return dict(output["output"])
     except database.PollNotFound:
         raise HTTPException(status_code=404, detail="Poll not found")
+    except database.PollOptionNotFound:
+        raise HTTPException(status_code=404, detail=f"Poll option {option_id} not found")
+    except database.OptionNotFromPoll:
+        raise HTTPException(
+            status_code=status.HTTP_422_UNPROCESSABLE_CONTENT,
+            detail=f"Poll option {option_id} doesn't belong to poll {poll_id}",
+        )
+    
 @app.delete("/polls/{poll_id}/options/{option_id}")
 def delete_option(poll_id: int, option_id: int):
     try:
@@ -142,6 +153,7 @@ def delete_option(poll_id: int, option_id: int):
         raise HTTPException(status_code=status.HTTP_404_NOT_FOUND, detail="Poll option not found")
     except database.OptionNotFromPoll:
         raise HTTPException(status_code=status.HTTP_422_UNPROCESSABLE_CONTENT, detail=f"Option {option_id} doesn't belong in poll {poll_id}")
+    
 @app.post("/polls/{poll_id}/votes")
 def submit_vote(poll_id: int, option_id: Vote): # body: {"poll_id":0,"id":1}
     try:
